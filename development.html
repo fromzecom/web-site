@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Development Dashboard - Fromze</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-rocket"></i>
+                <span>Fromze</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#features" class="nav-link">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#analytics" class="nav-link">Analytics</a>
+                </li>
+                <li class="nav-item">
+                    <a href="development.html" class="nav-link active">Development</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Development Dashboard -->
+    <section class="development-dashboard">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1>Development Dashboard</h1>
+                <p>Track our progress and see what's coming next in Fromze</p>
+                <div class="dashboard-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">11</span>
+                        <span class="stat-label">Features in Progress</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">9</span>
+                        <span class="stat-label">Completed This Month</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">2</span>
+                        <span class="stat-label">Next Release</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="filter-tabs">
+                <button class="filter-btn active" data-filter="all">All Features</button>
+                <button class="filter-btn" data-filter="in-progress">In Progress</button>
+                <button class="filter-btn" data-filter="completed">Completed</button>
+                <button class="filter-btn" data-filter="planned">Planned</button>
+            </div>
+
+            <!-- Development Board -->
+            <div class="development-board">
+                <!-- In Progress Features -->
+                <div class="feature-card in-progress" data-category="in-progress">
+                    <div class="feature-header">
+                        <div class="feature-status in-progress">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            In Progress
+                        </div>
+                        <div class="feature-priority high">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            High Priority
+                        </div>
+                    </div>
+                    <h3>Cloud Sync & Backup</h3>
+                    <p>Seamless synchronization across all devices with encrypted cloud backup.</p>
+                    <div class="feature-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%"></div>
+                        </div>
+                        <span class="progress-text">75% Complete</span>
+                    </div>
+                    <div class="feature-meta">
+                        <span class="eta">ETA: Q2 2025</span>
+                        <span class="assignee">Team: Backend</span>
+                    </div>
+                </div>
+
+                <div class="feature-card in-progress" data-category="in-progress">
+                    <div class="feature-header">
+                        <div class="feature-status in-progress">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            In Progress
+                        </div>
+                        <div class="feature-priority medium">
+                            <i class="fas fa-minus"></i>
+                            Medium Priority
+                        </div>
+                    </div>
+                    <h3>Smart Analytics Dashboard</h3>
+                    <p>Advanced analytics with customizable charts and insights.</p>
+                    <div class="feature-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 60%"></div>
+                        </div>
+                        <span class="progress-text">60% Complete</span>
+                    </div>
+                    <div class="feature-meta">
+                        <span class="eta">ETA: Q2 2025</span>
+                        <span class="assignee">Team: Frontend</span>
+                    </div>
+                </div>
+
+                <div class="feature-card completed" data-category="completed">
+                    <div class="feature-header">
+                        <div class="feature-status completed">
+                            <i class="fas fa-check-circle"></i>
+                            Completed
+                        </div>
+                        <div class="feature-priority completed">
+                            <i class="fas fa-check"></i>
+                            Done
+                        </div>
+                    </div>
+                    <h3>Mobile App (iOS/Android)</h3>
+                    <p>Native mobile applications for iOS and Android platforms.</p>
+                    <div class="feature-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%"></div>
+                        </div>
+                        <span class="progress-text">100% Complete</span>
+                    </div>
+                    <div class="feature-meta">
+                        <span class="eta">Released: Q2 2025</span>
+                        <span class="assignee">Team: Mobile</span>
+                    </div>
+                </div>
+
+                <!-- Completed Features -->
+                <div class="feature-card completed" data-category="completed">
+                    <div class="feature-header">
+                        <div class="feature-status completed">
+                            <i class="fas fa-check-circle"></i>
+                            Completed
+                        </div>
+                        <div class="feature-priority completed">
+                            <i class="fas fa-check"></i>
+                            Done
+                        </div>
+                    </div>
+                    <h3>Core Habit Tracking</h3>
+                    <p>Basic habit creation, tracking, and streak counting functionality.</p>
+                    <div class="feature-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%"></div>
+                        </div>
+                        <span class="progress-text">100% Complete</span>
+                    </div>
+                    <div class="feature-meta">
+                        <span class="eta">Released: Q1 2025</span>
+                        <span class="assignee">Team: Core</span>
+                    </div>
+                </div>
+
+                <div class="feature-card completed" data-category="completed">
+                    <div class="feature-header">
+                        <div class="feature-status completed">
+                            <i class="fas fa-check-circle"></i>
+                            Completed
+                        </div>
+                        <div class="feature-priority completed">
+                            <i class="fas fa-check"></i>
+                            Done
+                        </div>
+                    </div>
+                    <h3>Offline-First Architecture</h3>
+                    <p>Complete offline functionality with local data storage.</p>
+                    <div class="feature-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%"></div>
+                        </div>
+                        <span class="progress-text">100% Complete</span>
+                    </div>
+                    <div class="feature-meta">
+                        <span class="eta">Released: Q1 2025</span>
+                        <span class="assignee">Team: Backend</span>
+                    </div>
+                </div>
+
+                <div class="feature-card completed" data-category="completed">
+                    <div class="feature-header">
+                        <div class="feature-status completed">
+                            <i class="fas fa-check-circle"></i>
+                            Completed
+                        </div>
+                        <div class="feature-priority completed">
+                            <i class="fas fa-check"></i>
+                            Done
+                        </div>
+                    </div>
+                    <h3>Responsive Web Design</h3>
+                    <p>Modern, responsive web interface that works on all devices.</p>
+                    <div class="feature-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%"></div>
+                        </div>
+                        <span class="progress-text">100% Complete</span>
+                    </div>
+                    <div class="feature-meta">
+                        <span class="eta">Released: Q1 2025</span>
+                        <span class="assignee">Team: Frontend</span>
+                    </div>
+                </div>
+
+                <!-- Planned Features -->
+                <div class="feature-card planned" data-category="planned">
+                    <div class="feature-header">
+                        <div class="feature-status planned">
+                            <i class="fas fa-clock"></i>
+                            Planned
+                        </div>
+                        <div class="feature-priority low">
+                            <i class="fas fa-arrow-down"></i>
+                            Low Priority
+                        </div>
+                    </div>
+                    <h3>Community Features</h3>
+                    <p>Share progress with friends and join habit challenges.</p>
+                    <div class="feature-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <span class="progress-text">0% Complete</span>
+                    </div>
+                    <div class="feature-meta">
+                        <span class="eta">ETA: Q4 2025</span>
+                        <span class="assignee">Team: Social</span>
+                    </div>
+                </div>
+
+                <div class="feature-card planned" data-category="planned">
+                    <div class="feature-header">
+                        <div class="feature-status planned">
+                            <i class="fas fa-clock"></i>
+                            Planned
+                        </div>
+                        <div class="feature-priority medium">
+                            <i class="fas fa-minus"></i>
+                            Medium Priority
+                        </div>
+                    </div>
+                    <h3>AI-Powered Insights</h3>
+                    <p>Machine learning insights to optimize your habit building journey.</p>
+                    <div class="feature-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <span class="progress-text">0% Complete</span>
+                    </div>
+                    <div class="feature-meta">
+                        <span class="eta">ETA: Q4 2025</span>
+                        <span class="assignee">Team: AI</span>
+                    </div>
+                </div>
+
+                <div class="feature-card planned" data-category="planned">
+                    <div class="feature-header">
+                        <div class="feature-status planned">
+                            <i class="fas fa-clock"></i>
+                            Planned
+                        </div>
+                        <div class="feature-priority low">
+                            <i class="fas fa-arrow-down"></i>
+                            Low Priority
+                        </div>
+                    </div>
+                    <h3>Integration APIs</h3>
+                    <p>Connect with other productivity tools and health apps.</p>
+                    <div class="feature-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <span class="progress-text">0% Complete</span>
+                    </div>
+                    <div class="feature-meta">
+                        <span class="eta">ETA: Q1 2026</span>
+                        <span class="assignee">Team: Integrations</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Development Timeline -->
+            <div class="timeline-section">
+                <h2>Development Timeline</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker completed"></div>
+                        <div class="timeline-content">
+                            <h3>Q1 2025 - Foundation</h3>
+                            <p>Core habit tracking, offline architecture, and responsive web design completed.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker current"></div>
+                        <div class="timeline-content">
+                            <h3>Q2 2025 - Enhancement</h3>
+                            <p>Cloud sync, analytics dashboard, and advanced features development.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker future"></div>
+                        <div class="timeline-content">
+                            <h3>Q3 2025 - Mobile</h3>
+                            <p>iOS and Android mobile applications launch.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker future"></div>
+                        <div class="timeline-content">
+                            <h3>Q4 2025 - Social</h3>
+                            <p>Community features and AI-powered insights.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-rocket"></i>
+                        <span>Fromze</span>
+                    </div>
+                    <p>Transform your life one habit at a time with our intelligent habit tracking platform.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="index.html#features">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Download</a></li>
+                        <li><a href="#">API</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Fromze. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 

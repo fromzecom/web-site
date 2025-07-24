@@ -66,22 +66,37 @@ window.addEventListener('scroll', () => {
 });
 
 // Analytics time selector functionality
-const timeButtons = document.querySelectorAll('.time-btn');
-const chartBars = document.querySelectorAll('.chart-bar');
+function initializeAnalytics() {
+    const timeButtons = document.querySelectorAll('.time-btn');
+    const chartBars = document.querySelectorAll('.chart-bar');
+    
+    if (timeButtons.length > 0 && chartBars.length > 0) {
+        timeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                timeButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Update chart data based on selected time period
+                updateChart(button.textContent.toLowerCase(), chartBars);
+            });
+        });
+    }
+}
 
-timeButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        // Remove active class from all buttons
-        timeButtons.forEach(btn => btn.classList.remove('active'));
-        // Add active class to clicked button
-        button.classList.add('active');
+function updateChart(timePeriod, chartBars = null) {
+    // Get chart bars if not provided
+    if (!chartBars) {
+        chartBars = document.querySelectorAll('.chart-bar');
+    }
+    
+    // Only proceed if chart bars exist
+    if (!chartBars || chartBars.length === 0) {
         
-        // Update chart data based on selected time period
-        updateChart(button.textContent.toLowerCase());
-    });
-});
-
-function updateChart(timePeriod) {
+        return;
+    }
+    
     const chartData = {
         week: [60, 80, 45, 90, 75, 85, 70],
         month: [65, 72, 68, 85, 78, 82, 75, 88, 70, 83, 79, 86, 72, 78, 81, 84, 76, 79, 82, 85, 77, 80, 83, 86, 78, 81, 84, 87, 79, 82],
@@ -105,6 +120,13 @@ function updateChart(timePeriod) {
 
 function updateChartLabels(timePeriod) {
     const chartLabels = document.querySelector('.chart-labels');
+    
+    // Only proceed if chart labels exist
+    if (!chartLabels) {
+        
+        return;
+    }
+    
     let labels = [];
     
     switch(timePeriod) {
@@ -117,50 +139,57 @@ function updateChartLabels(timePeriod) {
         case 'year':
             labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
             break;
+        default:
+            labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            break;
     }
     
     chartLabels.innerHTML = labels.map(label => `<span>${label}</span>`).join('');
 }
 
 // Contact form handling
-const contactForm = document.querySelector('.contact-form');
-
-contactForm.addEventListener('submit', function(e) {
-    e.preventDefault();
+function initializeContactForm() {
+    const contactForm = document.querySelector('.contact-form');
     
-    // Get form data
-    const formData = new FormData(this);
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const subject = formData.get('subject');
-    const message = formData.get('message');
-    
-    // Basic validation
-    if (!name || !email || !subject || !message) {
-        showNotification('Please fill in all fields', 'error');
-        return;
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const subject = formData.get('subject');
+            const message = formData.get('message');
+            
+            // Basic validation
+            if (!name || !email || !subject || !message) {
+                showNotification('Please fill in all fields', 'error');
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                showNotification('Please enter a valid email address', 'error');
+                return;
+            }
+            
+            // Simulate form submission
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitButton.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                showNotification('Thank you! Your message has been sent successfully.', 'success');
+                this.reset();
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+            }, 2000);
+        });
     }
-    
-    if (!isValidEmail(email)) {
-        showNotification('Please enter a valid email address', 'error');
-        return;
-    }
-    
-    // Simulate form submission
-    const submitButton = this.querySelector('button[type="submit"]');
-    const originalText = submitButton.innerHTML;
-    
-    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-    submitButton.disabled = true;
-    
-    // Simulate API call
-    setTimeout(() => {
-        showNotification('Thank you! Your message has been sent successfully.', 'success');
-        this.reset();
-        submitButton.innerHTML = originalText;
-        submitButton.disabled = false;
-    }, 2000);
-});
+}
 
 function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -299,23 +328,37 @@ document.addEventListener('DOMContentLoaded', () => {
 function animateCounters() {
     const counters = document.querySelectorAll('.stat-number');
     
+    if (counters.length === 0) {
+        
+        return;
+    }
+    
     counters.forEach(counter => {
-        const target = parseInt(counter.textContent.replace(/[^\d]/g, ''));
-        const increment = target / 100;
-        let current = 0;
-        
-        const updateCounter = () => {
-            if (current < target) {
-                current += increment;
-                counter.textContent = Math.ceil(current) + (counter.textContent.includes('+') ? '+' : '') + 
-                                    (counter.textContent.includes('★') ? '★' : '');
-                requestAnimationFrame(updateCounter);
-            } else {
-                counter.textContent = counter.textContent.replace(/^\d+/, target);
+        try {
+            const target = parseInt(counter.textContent.replace(/[^\d]/g, ''));
+            if (isNaN(target)) {
+                
+                return;
             }
-        };
-        
-        updateCounter();
+            
+            const increment = target / 100;
+            let current = 0;
+            
+            const updateCounter = () => {
+                if (current < target) {
+                    current += increment;
+                    counter.textContent = Math.ceil(current) + (counter.textContent.includes('+') ? '+' : '') + 
+                                        (counter.textContent.includes('★') ? '★' : '');
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    counter.textContent = counter.textContent.replace(/^\d+/, target);
+                }
+            };
+            
+            updateCounter();
+        } catch (error) {
+            
+        }
     });
 }
 
@@ -334,29 +377,23 @@ if (heroSection) {
     heroObserver.observe(heroSection);
 }
 
-// Habit item interaction in mockup
-document.querySelectorAll('.habit-item').forEach(item => {
-    item.addEventListener('click', () => {
-        item.classList.toggle('completed');
-        const checkbox = item.querySelector('.habit-checkbox');
-        if (item.classList.contains('completed')) {
-            checkbox.innerHTML = '<i class="fas fa-check"></i>';
-        } else {
-            checkbox.innerHTML = '';
-        }
-    });
-});
+// Habit item interaction in mockup (removed since we now use real screenshot)
+function initializeHabitItems() {
+    // No longer needed since we use real app screenshot
+}
 
 // Download buttons functionality
-document.querySelectorAll('.btn').forEach(button => {
-    if (button.textContent.includes('Download')) {
-        button.addEventListener('click', (e) => {
-            e.preventDefault();
-            const platform = button.textContent.includes('iOS') ? 'iOS' : 'Android';
-            showNotification(`Download link for ${platform} will be available soon!`, 'info');
-        });
-    }
-});
+function initializeDownloadButtons() {
+    document.querySelectorAll('.btn').forEach(button => {
+        if (button.textContent.includes('Download for Android')) {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const platform = button.textContent.includes('iOS') ? 'iOS' : 'Android';
+                showNotification(`Download link for ${platform} will be available soon!`, 'info');
+            });
+        }
+    });
+}
 
 // Add loading animation for images
 document.addEventListener('DOMContentLoaded', () => {
@@ -458,4 +495,157 @@ if (!document.querySelector('meta[name="viewport"]')) {
     document.head.appendChild(viewport);
 }
 
-console.log('Fromze website loaded successfully! 🚀'); 
+// Development Dashboard Filter Functionality
+function initializeDevelopmentDashboard() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const featureCards = document.querySelectorAll('.feature-card');
+    
+    // Only initialize if we're on the development dashboard page
+    if (filterButtons.length > 0 && featureCards.length > 0) {
+        
+        
+        // Remove onclick attributes and add proper event listeners
+        filterButtons.forEach((button, index) => {
+            
+            
+            // Remove onclick attribute to avoid conflicts
+            button.removeAttribute('onclick');
+            
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const filter = button.getAttribute('data-filter');
+                
+                
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Filter feature cards using CSS classes
+                featureCards.forEach((card, cardIndex) => {
+                    const category = card.getAttribute('data-category');
+                    
+                    
+                    // Remove all filter classes first
+                    card.classList.remove('hidden', 'visible');
+                    
+                    if (filter === 'all' || category === filter) {
+                        card.classList.add('visible');
+                        card.classList.remove('hidden');
+                        
+                    } else {
+                        card.classList.add('hidden');
+                        card.classList.remove('visible');
+                        
+                    }
+                });
+            });
+        });
+        
+        // Add animation for feature cards
+        featureCards.forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+        
+        
+    } else {
+        
+    }
+}
+
+// Main initialization function
+function initializeAll() {
+    
+    
+    try {
+        // Initialize all page-specific functionality
+        initializeContactForm();
+        initializeAnalytics();
+        initializeHabitItems();
+        initializeDownloadButtons();
+        initializeDevelopmentDashboard();
+        
+        
+    } catch (error) {
+        console.error('Error during initialization:', error);
+    }
+}
+
+// Global error handler to catch any unhandled errors
+window.addEventListener('error', function(e) {
+    
+    
+    
+    
+});
+
+// Handle unhandled promise rejections
+window.addEventListener('unhandledrejection', function(e) {
+    
+});
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeAll);
+
+// Also try to initialize immediately if DOM is already loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeAll);
+} else {
+    // DOM is already loaded, initialize immediately
+    setTimeout(initializeAll, 100);
+}
+
+// Add fadeInUp animation for development dashboard
+const dashboardAnimationStyles = document.createElement('style');
+dashboardAnimationStyles.textContent = `
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .feature-card {
+        animation: fadeInUp 0.6s ease;
+        animation-fill-mode: both;
+    }
+`;
+document.head.appendChild(dashboardAnimationStyles);
+
+// Global test function for debugging filters
+window.testFilter = function(filterType) {
+    
+    const featureCards = document.querySelectorAll('.feature-card');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    
+    // Update active button
+    filterButtons.forEach(btn => btn.classList.remove('active'));
+    const targetButton = document.querySelector(`[data-filter="${filterType}"]`);
+    if (targetButton) {
+        targetButton.classList.add('active');
+    }
+    
+    // Filter feature cards
+    featureCards.forEach((card, cardIndex) => {
+        const category = card.getAttribute('data-category');
+        
+        
+        // Remove all filter classes first
+        card.classList.remove('hidden', 'visible');
+        
+        if (filterType === 'all' || category === filterType) {
+            card.classList.add('visible');
+            card.classList.remove('hidden');
+            
+        } else {
+            card.classList.add('hidden');
+            card.classList.remove('visible');
+            
+        }
+    });
+};
+
