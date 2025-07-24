@@ -395,18 +395,6 @@ function initializeDownloadButtons() {
     });
 }
 
-// Add loading animation for images
-document.addEventListener('DOMContentLoaded', () => {
-    const images = document.querySelectorAll('img');
-    images.forEach(img => {
-        img.addEventListener('load', () => {
-            img.style.opacity = '1';
-        });
-        img.style.opacity = '0';
-        img.style.transition = 'opacity 0.3s ease';
-    });
-});
-
 // Parallax effect for hero section (desktop only)
 window.addEventListener('scroll', () => {
     const isMobile = window.innerWidth <= 768;
