@@ -382,19 +382,6 @@ function initializeHabitItems() {
     // No longer needed since we use real app screenshot
 }
 
-// Download buttons functionality
-function initializeDownloadButtons() {
-    document.querySelectorAll('.btn').forEach(button => {
-        if (button.textContent.includes('Download for Android')) {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                const platform = button.textContent.includes('iOS') ? 'iOS' : 'Android';
-                showNotification(`Download link for ${platform} will be available soon!`, 'info');
-            });
-        }
-    });
-}
-
 // Parallax effect for hero section (desktop only)
 window.addEventListener('scroll', () => {
     const isMobile = window.innerWidth <= 768;
@@ -550,7 +537,6 @@ function initializeAll() {
         initializeContactForm();
         initializeAnalytics();
         initializeHabitItems();
-        initializeDownloadButtons();
         initializeDevelopmentDashboard();
         
         
