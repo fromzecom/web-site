@@ -366,7 +366,7 @@ function animateCounters() {
 const heroObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            animateCounters();
+            // animateCounters();
             heroObserver.unobserve(entry.target);
         }
     });
